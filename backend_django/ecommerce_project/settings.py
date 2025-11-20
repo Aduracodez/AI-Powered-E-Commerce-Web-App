@@ -137,18 +137,15 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Security settings for production
 if not DEBUG:
-    # HTTPS and security
-    SECURE_SSL_REDIRECT = True
+    # Trust Railway's proxy headers for HTTPS
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    
+    # Security settings (NO SSL redirect - Railway handles SSL)
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
-    
-    # HSTS
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
-    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
-    SECURE_HSTS_PRELOAD = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
